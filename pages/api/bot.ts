@@ -51,16 +51,16 @@ const handler = async (req: Request): Promise<Response> => {
                     }
                 }
                 // 直接回复该消息
-                _url += `reply/${data.mid}`;
-                // 直接在会话里回复
-                // if ('gid' in data.target) {
-                //     _url += `send_to_group/${data.target.gid}`;
+                //_url += `reply/${data.mid}`;
+                //直接在会话里回复
+                 if ('gid' in data.target) {
+                     _url += `send_to_group/${data.target.gid}`;
 
-                // } else {
-                //     _url += `send_to_user/${data.from_uid}`;
-                // }
+                 } else {
+                     _url += `send_to_user/${data.from_uid}`;
+                 }
                 console.log("bot: start req ChatGPT");
-                // sendMessageToBot(_url, "**正在生成回答，请耐心等待...**");
+                sendMessageToBot(_url, "**正在生成回答，请耐心等待...**");
                 const resp = await fetch(`${OPENAI_API_HOST}/v1/chat/completions`, {
                     headers: {
                         'Content-Type': 'application/json',
